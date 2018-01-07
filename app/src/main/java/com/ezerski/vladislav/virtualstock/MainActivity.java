@@ -13,7 +13,9 @@ import com.ezerski.vladislav.virtualstock.services.Uploader;
 import com.ezerski.vladislav.virtualstock.services.adapters.ArrayImageAdapter;
 import com.ezerski.vladislav.virtualstock.services.impl.MapUpploader;
 
-import java.util.ArrayList;
+import java.util.Random;
+
+import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.HORIZONTAL_SIZE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         gridView = findViewById(R.id.grid_view);
         adapter = new ArrayImageAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice);
 
+        final Random random = new Random();
+        int der = random.nextInt(4);
+
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 uploader.upload(getApplicationContext());
 
                 adapter.notifyDataSetInvalidated();
+                gridView.setNumColumns(HORIZONTAL_SIZE);
                 gridView.post(new Runnable() {
                     @Override
                     public void run() {

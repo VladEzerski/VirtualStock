@@ -3,6 +3,7 @@ package com.ezerski.vladislav.virtualstock.services.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,9 @@ import android.widget.ImageView;
 
 import com.ezerski.vladislav.virtualstock.services.MapReturner;
 import com.ezerski.vladislav.virtualstock.services.storage.MapStorage;
+
+import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.HORIZONTAL_SIZE;
+import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.VERTICAL_SIZE;
 
 public class ArrayImageAdapter<T> extends ArrayAdapter<T> {
     private Context context;
@@ -22,7 +26,7 @@ public class ArrayImageAdapter<T> extends ArrayAdapter<T> {
 
     @Override
     public int getCount() {
-        return MapStorage.VERTICAL_SIZE * MapStorage.HORIZONTAL_SIZE;
+        return MapStorage.VERTICAL_SIZE * HORIZONTAL_SIZE;
     }
 
     @Override
@@ -42,7 +46,12 @@ public class ArrayImageAdapter<T> extends ArrayAdapter<T> {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
+
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            int screenWidth = metrics.widthPixels;
+
+            imageView.setLayoutParams(new GridView.LayoutParams(screenWidth/HORIZONTAL_SIZE,
+                    screenWidth/VERTICAL_SIZE));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } else {
             imageView = (ImageView) convertView;
