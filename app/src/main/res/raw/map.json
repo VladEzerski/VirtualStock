@@ -1,6 +1,6 @@
 {
   "map": [
-    "<________<",
+    "|--------|",
     "|........|",
     "|........|",
     "|..X..X..E",
@@ -9,8 +9,15 @@
     "|........|",
     "|........|",
     "|........|",
-    "<________<"
+    "|--------|"
   ],
-  "verticalSize": 10,
-  "horizontalSize": 10
+  "vertical_size": 10,
+  "horizontal_size": 10,
+  "vertical_board": "|",
+  "space": ".",
+  "start": "S",
+  "exit": "E",
+  "box": "X",
+  "robot": "*",
+  "horizontal_board": "-"
 }

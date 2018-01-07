@@ -5,10 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 
 import com.ezerski.vladislav.virtualstock.services.Uploader;
+import com.ezerski.vladislav.virtualstock.services.adapters.ImageAdapter;
 import com.ezerski.vladislav.virtualstock.services.impl.MapUpploader;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Uploader uploader = new MapUpploader();
                 uploader.upload(getApplicationContext());
+
+                GridView gridView = findViewById(R.id.grid_view);
+                ImageAdapter adapter = new ImageAdapter(getApplicationContext());
+                gridView.invalidateViews();
+                gridView.setAdapter(adapter);
+                adapter.rewrite();
             }
         });
     }
