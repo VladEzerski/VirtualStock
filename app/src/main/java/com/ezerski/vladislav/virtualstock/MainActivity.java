@@ -1,17 +1,24 @@
 package com.ezerski.vladislav.virtualstock;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 
 import com.ezerski.vladislav.virtualstock.services.Uploader;
-import com.ezerski.vladislav.virtualstock.services.adapters.ImageAdapter;
+import com.ezerski.vladislav.virtualstock.services.adapters.ArrayImageAdapter;
 import com.ezerski.vladislav.virtualstock.services.impl.MapUpploader;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    protected ArrayAdapter<Image> adapter;
+    protected GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +35,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button btn_start = findViewById(R.id.btn_start);
+        gridView = findViewById(R.id.grid_view);
+        adapter = new ArrayImageAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice);
+
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Uploader uploader = new MapUpploader();
                 uploader.upload(getApplicationContext());
 
-                GridView gridView = findViewById(R.id.grid_view);
-                ImageAdapter adapter = new ImageAdapter(getApplicationContext());
-                gridView.invalidateViews();
-                gridView.setAdapter(adapter);
-                adapter.rewrite();
+                adapter.notifyDataSetInvalidated();
+                gridView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        gridView.setAdapter(adapter);
+                    }
+                });
+
             }
         });
     }

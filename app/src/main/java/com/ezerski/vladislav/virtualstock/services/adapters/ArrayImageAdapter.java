@@ -1,31 +1,28 @@
 package com.ezerski.vladislav.virtualstock.services.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.ezerski.vladislav.virtualstock.services.MapReturner;
+import com.ezerski.vladislav.virtualstock.services.storage.MapStorage;
 
-
-public class ImageAdapter extends BaseAdapter {
+public class ArrayImageAdapter<T> extends ArrayAdapter<T> {
     private Context context;
 
-    public ImageAdapter(Context cont) {
-        context = cont;
+    public ArrayImageAdapter(@NonNull Context context, int resource) {
+        super(context, resource);
+        this.context = context;
     }
 
     @Override
     public int getCount() {
-        return 0;
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return null;
+        return MapStorage.VERTICAL_SIZE * MapStorage.HORIZONTAL_SIZE;
     }
 
     @Override
@@ -39,8 +36,9 @@ public class ImageAdapter extends BaseAdapter {
         return new CharSequence[0];
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(context);
@@ -53,7 +51,4 @@ public class ImageAdapter extends BaseAdapter {
         return imageView;
     }
 
-    public void rewrite(){
-        this.notifyDataSetChanged();
-    }
 }
