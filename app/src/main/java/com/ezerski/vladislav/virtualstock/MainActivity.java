@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected ArrayAdapter<Image> adapter;
     protected GridView gridView;
+    protected RobotsMoving robot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn_start = findViewById(R.id.btn_start);
         gridView = findViewById(R.id.grid_view);
         adapter = new ArrayImageAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice);
-
-        final Random random = new Random();
-        int der = random.nextInt(4);
+        robot = new RobotsMoving(gridView);
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         gridView.setAdapter(adapter);
                     }
                 });
-
+                new Thread(new MyThread(),"MyThread").start();
             }
         });
     }
