@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.HORIZONTAL_SIZE;
+import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.VERTICAL_SIZE;
 
 public class RobotsMoving {
 
     private GridView gridView;
 
-    private int robotsCount;
+    private int robotsCount = 1;
 
     public RobotsMoving(GridView gridView) {
         this.gridView = gridView;
@@ -22,7 +23,7 @@ public class RobotsMoving {
     public void robotsMoving(int position, int direction) {
         StringBuilder map = new StringBuilder();
         gridView.invalidateViews();
-        for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++) {
+        for (int i = 0; i < VERTICAL_SIZE; i++) {
             for (int j = 0; j < HORIZONTAL_SIZE; j++) {
                 map.append(MapStorage.MAP.get(i).charAt(j));
             }
@@ -71,19 +72,18 @@ public class RobotsMoving {
 
         int[] mass = new int[robotsCount];
 
-        for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++) {
+        for (int i = 0; i < VERTICAL_SIZE; i++) {
             for (int j = 0; j < HORIZONTAL_SIZE; j++) {
                 map.append(MapStorage.MAP.get(i).charAt(j));
             }
         }
-        for (int k = 0; k < mass.length; k++) {
+        int currentPosition = 0;
             for (int i = 0; i < map.length(); i++) {
                 if (map.charAt(i) == MapStorage.ROBOT) {
-                    mass[k] = i;
-                    k++;
+                    mass[currentPosition] = i;
+                    currentPosition++;
                 }
             }
-        }
         return mass;
     }
 }
