@@ -15,27 +15,34 @@ public class MyThread implements Runnable {
     }
 
     RobotsMoving robot = new RobotsMoving(gridView);
+    ReturnElementPosition element = new ReturnElementPosition(gridView);
 
     final Random random = new Random();
     final int dir = random.nextInt(4);
 
-
-    final int exitPosition = robot.returnSymbolsPosition(MapStorage.EXIT);
+    int exitPosition = element.returnElementPosition(MapStorage.EXIT);
+    int enterPosition = element.returnElementPosition(MapStorage.START);
 
     @Override
     public void run() {
         try {
             Thread.sleep(1000);
             while (true) {
-                int robotPosition = robot.returnSymbolsPosition(MapStorage.ROBOT);
-                int exitPosition = robot.returnSymbolsPosition(MapStorage.EXIT);
-                robot.robotsMoving(robotPosition, dir);
-                if (robotPosition == exitPosition) {
-                    break;
-                }
+                redrawing();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void redrawing(){
+        int[] massPositions = robot.returnRobotsPosition();
+        while (true) {
+            robot.robotsMoving(massPositions[0], dir);
+            if (massPositions[0] == exitPosition) {
+                break;
+            }
+        }
+        gridView.invalidateViews();
     }
 }
