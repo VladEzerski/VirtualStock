@@ -2,7 +2,7 @@ package com.ezerski.vladislav.virtualstock.services;
 
 
 import com.ezerski.vladislav.virtualstock.R;
-import com.ezerski.vladislav.virtualstock.services.storage.MapStorage;
+import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 //todo add interface
 public class MapReturner {

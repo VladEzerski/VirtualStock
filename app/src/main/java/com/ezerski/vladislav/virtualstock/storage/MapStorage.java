@@ -1,4 +1,4 @@
-package com.ezerski.vladislav.virtualstock.services.storage;
+package com.ezerski.vladislav.virtualstock.storage;
 
 import java.util.ArrayList;
 import java.util.List;

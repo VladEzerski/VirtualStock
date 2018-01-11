@@ -3,7 +3,7 @@ package com.ezerski.vladislav.virtualstock.services.impl;
 import android.content.Context;
 
 import com.ezerski.vladislav.virtualstock.dto.InputMapProperties;
-import com.ezerski.vladislav.virtualstock.services.storage.MapStorage;
+import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 import com.ezerski.vladislav.virtualstock.services.Uploader;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;

@@ -10,18 +10,22 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import com.ezerski.vladislav.virtualstock.services.Uploader;
-import com.ezerski.vladislav.virtualstock.services.adapters.ArrayImageAdapter;
+import com.ezerski.vladislav.virtualstock.adapters.ArrayImageAdapter;
+import com.ezerski.vladislav.virtualstock.services.impl.CustomRobotsMovingTimer;
 import com.ezerski.vladislav.virtualstock.services.impl.MapUpploader;
+import com.ezerski.vladislav.virtualstock.services.impl.RobotsMover;
 
-import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.HORIZONTAL_SIZE;
+import static com.ezerski.vladislav.virtualstock.storage.MapStorage.HORIZONTAL_SIZE;
 
 public class MainActivity extends AppCompatActivity {
 
     protected ArrayAdapter<Image> adapter;
     protected GridView gridView;
-    protected RobotsMoving robot;
+    protected RobotsMover robot;
+    protected Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn_start = findViewById(R.id.btn_start);
         gridView = findViewById(R.id.grid_view);
         adapter = new ArrayImageAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice);
-        robot = new RobotsMoving(gridView);
+        robot = new RobotsMover(gridView);
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,14 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
                 adapter.notifyDataSetInvalidated();
                 gridView.setNumColumns(HORIZONTAL_SIZE);
-                gridView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        gridView.setAdapter(adapter);
-                    }
-                });
-                new Thread(new MyThread(gridView),"MyThread").start();
-                adapter.notifyDataSetInvalidated();
+                gridView.setAdapter(adapter);
+                timer = new Timer();
+                timer.scheduleAtFixedRate(new CustomRobotsMovingTimer(gridView, MainActivity.this), 0, 1000);
+
             }
         });
     }

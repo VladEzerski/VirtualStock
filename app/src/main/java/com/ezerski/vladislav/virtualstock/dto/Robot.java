@@ -1,4 +1,4 @@
-package com.ezerski.vladislav.virtualstock;
+package com.ezerski.vladislav.virtualstock.dto;
 
 import android.support.v7.app.AppCompatActivity;
 

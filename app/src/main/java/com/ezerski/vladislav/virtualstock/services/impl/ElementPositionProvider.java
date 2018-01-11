@@ -1,12 +1,13 @@
-package com.ezerski.vladislav.virtualstock;
+package com.ezerski.vladislav.virtualstock.services.impl;
 
-import com.ezerski.vladislav.virtualstock.services.storage.MapStorage;
+import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
-import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.HORIZONTAL_SIZE;
+import static com.ezerski.vladislav.virtualstock.storage.MapStorage.HORIZONTAL_SIZE;
 
-public class ReturnElementPosition {
+//todo add interface
+public class ElementPositionProvider {
 
-    public int returnElementPosition(char element){
+    public Integer returnElementPosition(char element){
         String str = String.valueOf(element);
         StringBuilder map = new StringBuilder();
         for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++) {

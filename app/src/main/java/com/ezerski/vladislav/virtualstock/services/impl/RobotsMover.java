@@ -1,28 +1,26 @@
-package com.ezerski.vladislav.virtualstock;
+package com.ezerski.vladislav.virtualstock.services.impl;
 
 import android.widget.GridView;
 
-import com.ezerski.vladislav.virtualstock.services.storage.MapStorage;
+import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.HORIZONTAL_SIZE;
-import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.VERTICAL_SIZE;
+import static com.ezerski.vladislav.virtualstock.storage.MapStorage.HORIZONTAL_SIZE;
+import static com.ezerski.vladislav.virtualstock.storage.MapStorage.VERTICAL_SIZE;
 
-public class RobotsMoving {
+//todo add interface
+public class RobotsMover {
 
     private GridView gridView;
 
-    private int robotsCount = 1;
-
-    public RobotsMoving(GridView gridView) {
+    public RobotsMover(GridView gridView) {
         this.gridView = gridView;
     }
 
     public void robotsMoving(int position, int direction) {
         StringBuilder map = new StringBuilder();
-        gridView.invalidateViews();
         for (int i = 0; i < VERTICAL_SIZE; i++) {
             for (int j = 0; j < HORIZONTAL_SIZE; j++) {
                 map.append(MapStorage.MAP.get(i).charAt(j));
@@ -43,7 +41,26 @@ public class RobotsMoving {
         }
     }
 
-    public void mapUpdating(String mapString, int position, int destination) {
+    public List<Integer> returnRobotsPosition() {
+
+        StringBuilder map = new StringBuilder();
+        List<Integer> robotPositions = new ArrayList<>();
+
+        for (int i = 0; i < VERTICAL_SIZE; i++) {
+            for (int j = 0; j < HORIZONTAL_SIZE; j++) {
+                map.append(MapStorage.MAP.get(i).charAt(j));
+            }
+        }
+
+        for (int i = 0; i < map.length(); i++) {
+            if (map.charAt(i) == MapStorage.ROBOT) {
+                robotPositions.add(i);
+            }
+        }
+        return robotPositions;
+    }
+
+    private void mapUpdating(String mapString, int position, int destination) {
         List<String> mapList = new ArrayList<>();
 
         StringBuilder newAppendedString = new StringBuilder();
@@ -64,26 +81,5 @@ public class RobotsMoving {
             }
         }
         MapStorage.MAP = mapList;
-    }
-
-    public int[] returnRobotsPosition() {
-
-        StringBuilder map = new StringBuilder();
-
-        int[] mass = new int[robotsCount];
-
-        for (int i = 0; i < VERTICAL_SIZE; i++) {
-            for (int j = 0; j < HORIZONTAL_SIZE; j++) {
-                map.append(MapStorage.MAP.get(i).charAt(j));
-            }
-        }
-        int currentPosition = 0;
-            for (int i = 0; i < map.length(); i++) {
-                if (map.charAt(i) == MapStorage.ROBOT) {
-                    mass[currentPosition] = i;
-                    currentPosition++;
-                }
-            }
-        return mass;
     }
 }

@@ -1,4 +1,4 @@
-package com.ezerski.vladislav.virtualstock.services.adapters;
+package com.ezerski.vladislav.virtualstock.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,10 +11,10 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.ezerski.vladislav.virtualstock.services.MapReturner;
-import com.ezerski.vladislav.virtualstock.services.storage.MapStorage;
+import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
-import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.HORIZONTAL_SIZE;
-import static com.ezerski.vladislav.virtualstock.services.storage.MapStorage.VERTICAL_SIZE;
+import static com.ezerski.vladislav.virtualstock.storage.MapStorage.HORIZONTAL_SIZE;
+import static com.ezerski.vladislav.virtualstock.storage.MapStorage.VERTICAL_SIZE;
 
 public class ArrayImageAdapter<T> extends ArrayAdapter<T> {
     private Context context;
