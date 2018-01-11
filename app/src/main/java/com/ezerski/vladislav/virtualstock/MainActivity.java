@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
                         gridView.setAdapter(adapter);
                     }
                 });
-                new Thread(new MyThread(),"MyThread").start();
+                new Thread(new MyThread(gridView),"MyThread").start();
+                adapter.notifyDataSetInvalidated();
             }
         });
     }

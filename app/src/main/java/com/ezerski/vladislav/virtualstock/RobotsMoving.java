@@ -20,6 +20,7 @@ public class RobotsMoving {
 
     public void robotsMoving(int position, int direction) {
         StringBuilder map = new StringBuilder();
+        gridView.invalidateViews();
         for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++) {
             for (int j = 0; j < HORIZONTAL_SIZE; j++) {
                 map.append(MapStorage.MAP.get(i).charAt(j));
@@ -63,16 +64,15 @@ public class RobotsMoving {
         MapStorage.MAP = mapList;
     }
 
-    public int returnRobotsPosition(){
-        String str = String.valueOf(MapStorage.ROBOT);
+    public int returnSymbolsPosition(char symbol){
+        String str = String.valueOf(symbol);
         StringBuilder map = new StringBuilder();
         for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++) {
             for (int j = 0; j < HORIZONTAL_SIZE; j++) {
                 map.append(MapStorage.MAP.get(i).charAt(j));
             }
         }
-        int pos = map.indexOf(str);
-
-       return pos;
+        int position = map.indexOf(str);
+        return position + 1;
     }
 }
