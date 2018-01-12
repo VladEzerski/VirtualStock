@@ -26,24 +26,27 @@ public class SettingsActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
+                Intent intent = new Intent();
                 switch (checkedID){
                     case -1:
                         Toast.makeText(getApplicationContext(),"Nothing selected",
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rad_btn_two_robots:
-                        MapStorage.ROBOT_COUNT = 2;
+                        intent.putExtra("robotCount", MapStorage.ROBOT_COUNT = 2);
                         break;
                     case R.id.rad_btn_three_robots:
-                        MapStorage.ROBOT_COUNT = 3;
+                        intent.putExtra("robotCount", MapStorage.ROBOT_COUNT = 3);
                         break;
                     case R.id.rad_btn_four_robots:
-                        MapStorage.ROBOT_COUNT = 4;
+                        intent.putExtra("robotCount", MapStorage.ROBOT_COUNT = 4);
                         break;
                     case R.id.rad_btn_five_robots:
-                        MapStorage.ROBOT_COUNT = 5;
+                        intent.putExtra("robotCount", MapStorage.ROBOT_COUNT = 5);
                         break;
                 }
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 

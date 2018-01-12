@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.ezerski.vladislav.virtualstock.services.Uploader;
 import com.ezerski.vladislav.virtualstock.adapters.ArrayImageAdapter;
 import com.ezerski.vladislav.virtualstock.services.impl.CustomRobotsMovingTimer;
 import com.ezerski.vladislav.virtualstock.services.impl.MapUpploader;
 import com.ezerski.vladislav.virtualstock.services.impl.RobotsMover;
+import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,6 +23,8 @@ import java.util.TimerTask;
 import static com.ezerski.vladislav.virtualstock.storage.MapStorage.HORIZONTAL_SIZE;
 
 public class MainActivity extends AppCompatActivity {
+
+    final static int REQUEST_CODE = 1;
 
     protected ArrayAdapter<Image> adapter;
     protected GridView gridView;
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -56,9 +60,22 @@ public class MainActivity extends AppCompatActivity {
                 gridView.setNumColumns(HORIZONTAL_SIZE);
                 gridView.setAdapter(adapter);
                 timer = new Timer();
-                timer.scheduleAtFixedRate(new CustomRobotsMovingTimer(gridView, MainActivity.this), 0, 1000);
+                timer.scheduleAtFixedRate(new CustomRobotsMovingTimer(gridView,
+                        MainActivity.this), 0, 1000);
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                MapStorage.ROBOT_COUNT = data.getIntExtra("robotCount", MapStorage.ROBOT_COUNT);
+            } else {
+                Toast.makeText(getApplicationContext(),"Wrong result",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
