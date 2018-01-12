@@ -6,14 +6,47 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    public int robotCount = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Button btn = (Button) findViewById(R.id.btn_ok);
+        Button btn = findViewById(R.id.btn_ok);
+
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
+                switch (checkedID){
+                    case -1:
+                        Toast.makeText(getApplicationContext(),"Nothing selected",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.rad_btn_two_robots:
+                        MapStorage.ROBOT_COUNT = 2;
+                        break;
+                    case R.id.rad_btn_three_robots:
+                        MapStorage.ROBOT_COUNT = 3;
+                        break;
+                    case R.id.rad_btn_four_robots:
+                        MapStorage.ROBOT_COUNT = 4;
+                        break;
+                    case R.id.rad_btn_five_robots:
+                        MapStorage.ROBOT_COUNT = 5;
+                        break;
+                }
+            }
+        });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

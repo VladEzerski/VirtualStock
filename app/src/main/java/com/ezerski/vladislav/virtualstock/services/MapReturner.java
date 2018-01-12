@@ -20,7 +20,7 @@ public class MapReturner {
     //todo rewrite to enum
     public int getIdByChar(char charValue) {
 
-        if (charValue == MapStorage.HORIZONT_BOARD) {
+        if (charValue == MapStorage.HORIZONTAL_BOARD) {
             return R.drawable.shape_rectangle_black;
         }
 

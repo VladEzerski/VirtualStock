@@ -37,7 +37,7 @@ public class MapUpploader implements Uploader {
             MapStorage.HORIZONTAL_SIZE = inputMapProperties.getHorizontalSize();
             MapStorage.VERTICAL_SIZE = inputMapProperties.getVerticalSize();
             MapStorage.MAP = inputMapProperties.getMap();
-            MapStorage.HORIZONT_BOARD = inputMapProperties.getHorizontalBoard();
+            MapStorage.HORIZONTAL_BOARD = inputMapProperties.getHorizontalBoard();
             MapStorage.VERTICAL_BOARD = inputMapProperties.getVerticalBoard();
             MapStorage.BOX = inputMapProperties.getBox();
             MapStorage.ROBOT = inputMapProperties.getRobot();
