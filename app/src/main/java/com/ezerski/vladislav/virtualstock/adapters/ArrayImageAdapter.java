@@ -49,9 +49,10 @@ public class ArrayImageAdapter<T> extends ArrayAdapter<T> {
 
             DisplayMetrics metrics = context.getResources().getDisplayMetrics();
             int screenWidth = metrics.widthPixels;
+            int screenHeight = metrics.heightPixels;
 
             imageView.setLayoutParams(new GridView.LayoutParams(screenWidth/HORIZONTAL_SIZE,
-                    screenWidth/VERTICAL_SIZE));
+                    screenHeight/VERTICAL_SIZE));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } else {
             imageView = (ImageView) convertView;

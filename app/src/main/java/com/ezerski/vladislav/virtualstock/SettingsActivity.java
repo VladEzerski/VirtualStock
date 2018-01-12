@@ -20,9 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Button btn = findViewById(R.id.btn_ok);
-
-        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
@@ -47,14 +45,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 setResult(RESULT_OK, intent);
                 finish();
-            }
-        });
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
             }
         });
     }

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
