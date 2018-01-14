@@ -25,27 +25,29 @@ public class MapReturner {
         return getIdByChar(unionMap.charAt(position));
     }
 
-    public void generateRobotsOnMap(){
+    public void generateRobotsOnMap() {
         StringBuilder map = new StringBuilder();
         int n = MapStorage.ROBOT_COUNT;
 
-        for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++){
-            for (int j = 0; j < MapStorage.HORIZONTAL_SIZE; j++){
+        for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++) {
+            for (int j = 0; j < MapStorage.HORIZONTAL_SIZE; j++) {
                 map.append(MapStorage.MAP.get(i).charAt(j));
             }
         }
 
-        for (int k = 0; k < n; k++){
+        int k = 0;
+        while (k < n) {
             int rand = random.nextInt(map.length());
-           if (map.charAt(rand) == MapStorage.SPACE){
-               map.replace(rand, rand, String.valueOf(MapStorage.ROBOT));
-           }
+            if (map.charAt(rand) == MapStorage.SPACE) {
+                map.replace(rand, rand, String.valueOf(MapStorage.ROBOT));
+                k++;
+            }
         }
 
         List<String> mapList = new ArrayList<>();
         StringBuilder newAppendedString = new StringBuilder();
 
-        for (int i = 0; i < map.length(); i++){
+        for (int i = 0; i < map.length(); i++) {
             newAppendedString.append(map.charAt(i));
             if ((i + 1) % HORIZONTAL_SIZE == 0) {
                 mapList.add(newAppendedString.toString());
