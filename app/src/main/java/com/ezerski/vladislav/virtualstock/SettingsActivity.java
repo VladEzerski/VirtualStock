@@ -13,8 +13,6 @@ import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    public int robotCount = 0;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

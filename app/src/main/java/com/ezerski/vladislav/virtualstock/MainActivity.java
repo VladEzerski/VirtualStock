@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.ezerski.vladislav.virtualstock.services.MapReturner;
 import com.ezerski.vladislav.virtualstock.services.Uploader;
 import com.ezerski.vladislav.virtualstock.adapters.ArrayImageAdapter;
 import com.ezerski.vladislav.virtualstock.services.impl.CustomRobotsMovingTimer;
@@ -18,7 +19,6 @@ import com.ezerski.vladislav.virtualstock.services.impl.RobotsMover;
 import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import static com.ezerski.vladislav.virtualstock.storage.MapStorage.HORIZONTAL_SIZE;
 
@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected GridView gridView;
     protected RobotsMover robot;
     protected Timer timer;
+
+    MapReturner robotsOnMap = new MapReturner();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Uploader uploader = new MapUpploader();
                 uploader.upload(getApplicationContext());
 
+                robotsOnMap.generateRobotsOnMap();
                 adapter.notifyDataSetInvalidated();
                 gridView.setNumColumns(HORIZONTAL_SIZE);
                 gridView.setAdapter(adapter);

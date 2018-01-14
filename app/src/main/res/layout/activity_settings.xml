@@ -25,7 +25,7 @@
             android:id="@+id/rad_btn_two_robots"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:text="2" />
 
         <RadioButton
