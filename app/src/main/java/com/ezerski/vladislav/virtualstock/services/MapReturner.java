@@ -2,6 +2,7 @@ package com.ezerski.vladislav.virtualstock.services;
 
 
 import com.ezerski.vladislav.virtualstock.R;
+import com.ezerski.vladislav.virtualstock.services.impl.ElementPositionProvider;
 import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 import java.util.ArrayList;
@@ -16,30 +17,18 @@ public class MapReturner {
     private final Random random = new Random();
 
     public int provideImageId(int position) {
-        StringBuilder unionMap = new StringBuilder();
-        for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++) {
-            for (int j = 0; j < MapStorage.HORIZONTAL_SIZE; j++) {
-                unionMap.append(MapStorage.MAP.get(i).charAt(j));
-            }
-        }
-        return getIdByChar(unionMap.charAt(position));
+        StringBuilder map = new ElementPositionProvider().provideMapAsString();
+        return getIdByChar(map.charAt(position));
     }
 
     public void generateRobotsOnMap() {
-        StringBuilder map = new StringBuilder();
+        StringBuilder map = new ElementPositionProvider().provideMapAsString();
         int n = MapStorage.ROBOT_COUNT;
-
-        for (int i = 0; i < MapStorage.VERTICAL_SIZE; i++) {
-            for (int j = 0; j < MapStorage.HORIZONTAL_SIZE; j++) {
-                map.append(MapStorage.MAP.get(i).charAt(j));
-            }
-        }
-
         int k = 0;
         while (k < n) {
             int rand = random.nextInt(map.length());
             if (map.charAt(rand) == MapStorage.SPACE) {
-                map.replace(rand, rand, String.valueOf(MapStorage.ROBOT));
+                map.replace(rand, rand + 1, String.valueOf(MapStorage.ROBOT));
                 k++;
             }
         }

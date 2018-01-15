@@ -15,10 +15,9 @@ public class CustomRobotsMovingTimer extends TimerTask {
 
     private GridView gridView;
 
-    private final Random random = new Random();
     private final MainActivity mainActivity;
 
-    private RobotsMover robot = new RobotsMover(gridView);
+    private RobotsMover robot = new RobotsMover();
     private Integer exitPosition = new ElementPositionProvider().returnElementPosition(MapStorage.EXIT);
 
     public CustomRobotsMovingTimer(GridView gridView, MainActivity mainActivity) {
@@ -33,8 +32,9 @@ public class CustomRobotsMovingTimer extends TimerTask {
             public void run() {
                 ((ArrayAdapter) gridView.getAdapter()).notifyDataSetInvalidated();
                 List<Integer> robotsPosition = robot.returnRobotsPosition();
-                final int dir = random.nextInt(4);
+
                 for (Integer position : robotsPosition) {
+                    final int dir = new Random().nextInt(4);
                     robot.robotsMoving(position, dir);
                     if (position.equals(exitPosition)) {
                         break;

@@ -15,7 +15,6 @@ import com.ezerski.vladislav.virtualstock.services.Uploader;
 import com.ezerski.vladislav.virtualstock.adapters.ArrayImageAdapter;
 import com.ezerski.vladislav.virtualstock.services.impl.CustomRobotsMovingTimer;
 import com.ezerski.vladislav.virtualstock.services.impl.MapUpploader;
-import com.ezerski.vladislav.virtualstock.services.impl.RobotsMover;
 import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 import java.util.Timer;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected ArrayAdapter<Image> adapter;
     protected GridView gridView;
-    protected RobotsMover robot;
+
     protected Timer timer;
 
     MapReturner robotsOnMap = new MapReturner();
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         Button btn_start = findViewById(R.id.btn_start);
         gridView = findViewById(R.id.grid_view);
         adapter = new ArrayImageAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice);
-        robot = new RobotsMover(gridView);
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 gridView.setAdapter(adapter);
                 timer = new Timer();
                 timer.scheduleAtFixedRate(new CustomRobotsMovingTimer(gridView,
-                        MainActivity.this), 0, 1000);
+                        MainActivity.this), 0, 300);
 
             }
         });

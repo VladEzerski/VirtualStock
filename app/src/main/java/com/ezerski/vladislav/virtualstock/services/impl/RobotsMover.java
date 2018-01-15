@@ -13,44 +13,41 @@ import static com.ezerski.vladislav.virtualstock.storage.MapStorage.VERTICAL_SIZ
 //todo add interface
 public class RobotsMover {
 
-    private GridView gridView;
-
-    public RobotsMover(GridView gridView) {
-        this.gridView = gridView;
-    }
+    private final ElementPositionProvider elementPositionProvider = new ElementPositionProvider();
 
     public void robotsMoving(int position, int direction) {
-        StringBuilder map = new StringBuilder();
-        for (int i = 0; i < VERTICAL_SIZE; i++) {
-            for (int j = 0; j < HORIZONTAL_SIZE; j++) {
-                map.append(MapStorage.MAP.get(i).charAt(j));
-            }
-        }
+        String map = elementPositionProvider.provideMapAsString().toString();
+
         //todo enum
-        if (direction == 0) {
-            mapUpdating(map.toString(), position, position - HORIZONTAL_SIZE);
-        }
-        if (direction == 1) {
-            mapUpdating(map.toString(), position, position + 1);
-        }
-        if (direction == 2) {
-            mapUpdating(map.toString(), position, position + HORIZONTAL_SIZE);
-        }
-        if (direction == 3) {
-            mapUpdating(map.toString(), position, position - 1);
+        switch (direction) {
+            case 0:
+                if (checkValidPosition(position - HORIZONTAL_SIZE)) {
+                    mapUpdating(map, position, position - HORIZONTAL_SIZE);
+                    break;
+                }
+            case 1:
+                if (checkValidPosition(position + 1)) {
+                    mapUpdating(map, position, position + 1);
+                    break;
+                }
+            case 2:
+                if (checkValidPosition(position + HORIZONTAL_SIZE)) {
+                    mapUpdating(map, position, position + HORIZONTAL_SIZE);
+                    break;
+                }
+            case 3:
+                if (checkValidPosition(position - 1)) {
+                    mapUpdating(map, position, position - 1);
+                    break;
+                }
         }
     }
 
-    public List<Integer> returnRobotsPosition() {
 
-        StringBuilder map = new StringBuilder();
+    public synchronized List<Integer> returnRobotsPosition() {
+
+        StringBuilder map = elementPositionProvider.provideMapAsString();
         List<Integer> robotPositions = new ArrayList<>();
-
-        for (int i = 0; i < VERTICAL_SIZE; i++) {
-            for (int j = 0; j < HORIZONTAL_SIZE; j++) {
-                map.append(MapStorage.MAP.get(i).charAt(j));
-            }
-        }
 
         for (int i = 0; i < map.length(); i++) {
             if (map.charAt(i) == MapStorage.ROBOT) {
@@ -60,7 +57,7 @@ public class RobotsMover {
         return robotPositions;
     }
 
-    private void mapUpdating(String mapString, int position, int destination) {
+    private synchronized void mapUpdating(String mapString, int position, int destination) {
         List<String> mapList = new ArrayList<>();
 
         StringBuilder newAppendedString = new StringBuilder();
@@ -81,5 +78,12 @@ public class RobotsMover {
             }
         }
         MapStorage.MAP = mapList;
+    }
+
+    private boolean checkValidPosition(int position) {
+        String map = elementPositionProvider.provideMapAsString().toString();
+        return position > HORIZONTAL_SIZE && position < ((HORIZONTAL_SIZE - 1) * VERTICAL_SIZE)
+                && position % (HORIZONTAL_SIZE - 1) != 0 && (position % HORIZONTAL_SIZE != 0)
+                && map.charAt(position) == MapStorage.SPACE;
     }
 }
