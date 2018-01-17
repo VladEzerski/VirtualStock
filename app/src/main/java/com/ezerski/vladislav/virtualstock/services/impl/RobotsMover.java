@@ -2,6 +2,7 @@ package com.ezerski.vladislav.virtualstock.services.impl;
 
 import android.widget.GridView;
 
+import com.ezerski.vladislav.virtualstock.services.Direction;
 import com.ezerski.vladislav.virtualstock.storage.MapStorage;
 
 import java.util.ArrayList;
@@ -18,24 +19,25 @@ public class RobotsMover {
     public void robotsMoving(int position, int direction) {
         String map = elementPositionProvider.provideMapAsString().toString();
 
-        //todo enum
-        switch (direction) {
-            case 0:
+        Direction direction1 = Direction.values()[direction];
+
+        switch (direction1) {
+            case UP:
                 if (checkValidPosition(position - HORIZONTAL_SIZE)) {
                     mapUpdating(map, position, position - HORIZONTAL_SIZE);
                     break;
                 }
-            case 1:
+            case RIGHT:
                 if (checkValidPosition(position + 1)) {
                     mapUpdating(map, position, position + 1);
                     break;
                 }
-            case 2:
+            case DOWN:
                 if (checkValidPosition(position + HORIZONTAL_SIZE)) {
                     mapUpdating(map, position, position + HORIZONTAL_SIZE);
                     break;
                 }
-            case 3:
+            case lEFT:
                 if (checkValidPosition(position - 1)) {
                     mapUpdating(map, position, position - 1);
                     break;
